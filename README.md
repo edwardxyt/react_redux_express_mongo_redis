@@ -25,7 +25,7 @@ $ npm run deploy:prod           # 生成打包
 $ npm run start                 # node服务器
 ```
 
-node: 启动nginx、mongodb、redis。
+启动服务: nginx、mongodb、redis。
 ```bash
 $ mongod --dbpath /Users/edward/workspaces/react-redux/mongodb
 $ redis-server /Users/edward/workspaces/react-redux/redis.conf
