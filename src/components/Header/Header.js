@@ -6,7 +6,7 @@ import { Button } from 'antd';
 export const Header = () => (
   <div className="Header">
     <Button type="danger">Danger</Button>
-    <h1>在React Starter Kit ---- <a href='' target='_blank'>bodyno</a></h1>
+    <h1>React_Redux_Express_mongodb_redis ---- <a href='https://github.com/edwardxyt/react_redux_express_mongo_redis' target='_blank'>target</a></h1>
     <IndexLink to='/' activeClassName='route--active'>
       Home
     </IndexLink>
