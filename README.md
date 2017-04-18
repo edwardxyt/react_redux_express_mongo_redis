@@ -34,7 +34,7 @@ $ nginx -t -c /Users/edward/workspaces/react-redux/nginx.conf
 
 如果一切顺利，你会看到如下:
 
-<img src="http://i.imgur.com/zR7VRG6.png?2" />
+<img src="https://github.com/edwardxyt/react_redux_express_mongo_redis/blob/master/README.png?raw=true" />
 
 开发过程中，你用得最多的会是`npm dev`，但是这里还有很多其它的处理：
 
