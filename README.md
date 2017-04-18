@@ -36,6 +36,7 @@ $ nginx -t -c /Users/edward/workspaces/react-redux/nginx.conf
 
 <img src="https://github.com/edwardxyt/react_redux_express_mongo_redis/blob/master/README.png?raw=true" />
 <img src="https://github.com/edwardxyt/react_redux_express_mongo_redis/blob/master/INDEX.png?raw=true" />
+<img src="https://github.com/edwardxyt/react_redux_express_mongo_redis/blob/master/POSTMAN.png?raw=true" />
 
 开发过程中，你用得最多的会是`npm dev`，但是这里还有很多其它的处理：
 
