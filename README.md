@@ -1,8 +1,11 @@
-# React_Redus_Express_mongodb_redis
+# React_Redux_Express_mongodb_redis
 
 ## 需求配置
-* node `^6.9.0`
+* node `^6.9.0`x
 * npm `^3.0.0`
+* nginx `^1.10.3`
+* redis `^3.2.8`
+* mongodb `^3.4.1`
 
 ## 开始
 
