@@ -76,11 +76,6 @@ $ nginx -t -c /Users/edward/workspaces/react-redux/nginx.conf
 │   │   │   ├── assets                # 组件引入的静态资源
 │   │   │   ├── components            # 直观React组件
 │   │   │   └── index.js              # 路由定义和代码异步分割
-│   │   ├── Counter
-│   │   ├── Elapse
-│   │   ├── PageNotFound
-│   │   ├── Route
-│   │   ├── Zen
 │   │   └── index.js                  # 用store启动主程序路由
 │   ├── static                        # 静态文件(不要到处imported源文件)
 │   ├── store                         # Redux指定块
