@@ -44,7 +44,7 @@ $ nginx -t -c /Users/edward/workspaces/react-redux/nginx.conf
 |------------------|-----------|
 |`start`|服务启动在3000端口，代码热替换开启。|
 |`dev`|与`npm start`相同, 但是启动nodemon守护进程。|
-|`deploy:prod`|与`deploy`相同，但是`NODE_ENV`值为"production"。build在start之前。|
+|`deploy:prod`|`NODE_ENV`值为"production"。build在start之前。|
 
 ## 程序目录
 
