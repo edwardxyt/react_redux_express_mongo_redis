@@ -4,10 +4,10 @@ const db = require(path.relative(__dirname, MONGO));
 
 //一个用户模型
 var UserSchema = new mongoose.Schema({
-	username    : { type: String/*, index: true */},
+	username    : { type: String, /*index: { unique: true }*/ },
 	password    : { type: String },
 	avatar      : { type: String },
-	age         : { type: Number, default: 0 },
+	age         : { type: Number, default: 0, /*index: true*/ },
 	description : { type: String, default: '' },
 	email       : { type: String },
 	github      : { type: String },
@@ -15,7 +15,7 @@ var UserSchema = new mongoose.Schema({
 	Update      : { type: Date }
 });
 
-UserSchema.index({ username: 1, time: -1 });
+UserSchema.index({ username: 1, time: -1 }, {unique: true});
 
 //创建Model
 var UserModel = db.model("user", UserSchema );
