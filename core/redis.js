@@ -1,13 +1,9 @@
 const debug = require('debug')('app:redis')
-
+const config = require('../config');
 const redis = require('redis'),
-    RDS_PORT = 6379,        //端口号
-    RDS_HOST = '127.0.0.1',    //服务器IP
-    RDS_PWD  = 'porschev',  //密码
-    RDS_OPTS = {},            //设置项
-    client = redis.createClient(RDS_PORT,RDS_HOST,RDS_OPTS);
+    client = redis.createClient(config.redis.port, config.redis.host, config.redis.options);
 
-client.auth(RDS_PWD,function(){
+client.auth(config.redis.password,function(){
   debug('密码******通过认证');
 });
 

@@ -1,11 +1,12 @@
-const mongoose = require('mongoose'),
-    DB_URL = 'mongodb://localhost:27017/news',
-    debug = require('debug')('app:mongoDB')
+const config = require('../config'),
+  mongoose = require('mongoose'),
+  debug = require('debug')('app:mongoDB'),
+  DB_URL = config.mongodb.host + config.mongodb.port + '/' + config.mongodb.database;
 
 /**
  * 连接
  */
-var db = mongoose.connect(DB_URL);
+const db = mongoose.connect(DB_URL);
 
 /**
   * 连接成功

@@ -78,7 +78,18 @@ const config = {
   coverage_reporters : [
     { type : 'text-summary' },
     { type : 'lcov', dir : 'coverage' }
-  ]
+  ],
+  mongodb: {
+    port: 27017,
+    database: 'news',
+    host: 'mongodb://localhost:',
+  },
+  redis: {
+    port: 6379,
+    host: '127.0.0.1',
+    password: 'porschev',
+    options: {}
+  }
 }
 
 // ------------------------------------
