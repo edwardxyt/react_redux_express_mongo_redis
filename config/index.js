@@ -79,11 +79,21 @@ const config = {
     { type : 'text-summary' },
     { type : 'lcov', dir : 'coverage' }
   ],
+
+  // ----------------------------------
+  // mongodb
+  // ----------------------------------
   mongodb: {
     port: 27017,
     database: 'news',
     host: 'mongodb://localhost:',
+    user: '',
+    password: '',
   },
+
+  // ----------------------------------
+  // redis
+  // ----------------------------------
   redis: {
     port: 6379,
     host: '127.0.0.1',
