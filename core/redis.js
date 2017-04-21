@@ -1,9 +1,9 @@
 const debug = require('debug')('app:redis')
-const config = require('../config');
+const setting = require('../config').redis;
 const redis = require('redis'),
-    client = redis.createClient(config.redis.port, config.redis.host, config.redis.options);
+    client = redis.createClient(setting.port, setting.host, setting.options);
 
-client.auth(config.redis.password,function(){
+client.auth(setting.password,function(){
   debug('密码******通过认证');
 });
 

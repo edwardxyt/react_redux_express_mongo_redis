@@ -16,9 +16,31 @@ const paths = config.utils_paths
 
 // ------------------------------------
 // 定义cookie解析器
+// session 持久化存储
 // ------------------------------------
-// const cookieParser = require('cookie-parser');
-// server.use(cookieParser());
+const cookieParser = require('cookie-parser');
+const session = require('express-session');  //session
+const MongoStore = require('connect-mongo')(session); //写入数据库session
+const RedisStore = require('connect-redis')(session);
+
+server.use(cookieParser());
+// server.use(session({
+//   secret: config.mongodb.cookieSecret,  //防止篡改Cookie 作为服务器端生成session的签名
+//   key: config.mongodb.database,//cookie name
+//   cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 },//30 days
+//   store: new MongoStore({
+//       url: config.mongodb.path + config.mongodb.port + '/' + config.mongodb.database
+//   })
+// }));
+server.use(session({
+  secret: config.redis.cookieSecret,  //防止篡改Cookie 作为服务器端生成session的签名
+  store: new RedisStore({
+    host: config.redis.host,
+    port: config.redis.port,
+    db: 1,
+    pass: config.redis.password
+  })
+}));
 
 // ------------------------------------
 // 配置后端API地址前缀

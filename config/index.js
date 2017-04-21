@@ -86,9 +86,11 @@ const config = {
   mongodb: {
     port: 27017,
     database: 'news',
-    host: 'mongodb://localhost:',
+    host: '127.0.0.1',
+    path: 'mongodb://localhost:',
     user: '',
     password: '',
+    cookieSecret: 'edward' //Cookie加密 与数据库无关 留用
   },
 
   // ----------------------------------
@@ -98,7 +100,10 @@ const config = {
     port: 6379,
     host: '127.0.0.1',
     password: 'porschev',
-    options: {}
+    options: {
+      db: 1
+    },
+    cookieSecret: 'edward' //Cookie加密 与数据库无关 留用
   }
 }
 

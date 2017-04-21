@@ -1,7 +1,7 @@
-const config = require('../config'),
+const setting = require('../config').mongodb,
   mongoose = require('mongoose'),
   debug = require('debug')('app:mongoDB'),
-  DB_URL = config.mongodb.host + config.mongodb.port + '/' + config.mongodb.database;
+  DB_URL = setting.path + setting.port + '/' + setting.database;
 
 /**
  * 连接

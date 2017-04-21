@@ -11,12 +11,23 @@ const api = require(path.relative(__dirname, API_USER));
  * 查询用户
  */
 module.exports = router.get( '/user/findAll', ( req, res, next ) => {
+  if (!req.session.user) {
+    console.log('error', '未登录!');
+  }else {
+    console.log('success', '已登录!');
+  }
+  req.session.user = {  //用户信息存入 session
+        name:"Chen-xy",
+        age:"22",
+        address:"bj"
+    };
   client.lrange('data', 0, -1 , function(err, list){
     if(list.length > 0){
       console.log('redis');
 
       res.json({
         success: true,
+        session: req.session.user,
         result: JSON.parse(list)
       });
     }else {
