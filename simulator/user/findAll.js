@@ -3,6 +3,7 @@ const path = require('path')
 const router = express.Router();
 const _ = require('lodash');
 const redis = require('redis');
+const request = require('request');
 
 const client = require(path.relative(__dirname, REDIS));
 const api = require(path.relative(__dirname, API_USER));
@@ -16,6 +17,13 @@ module.exports = router.get( '/user/findAll', ( req, res, next ) => {
   }else {
     console.log('success', '已登录!');
   }
+
+  request.get('http://www.baidu.com', function (error, response, body) {
+    // console.log('error:', error);
+    // console.log('statusCode:', response && response.statusCode);
+    console.log('body:', body);
+  });
+
   req.session.user = {  //用户信息存入 session
         name:"Chen-xy",
         age:"22",

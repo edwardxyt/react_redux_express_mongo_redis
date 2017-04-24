@@ -26,14 +26,15 @@ const RedisStore = require('connect-redis')(session);
 server.use(cookieParser());
 // server.use(session({
 //   secret: config.mongodb.cookieSecret,  //防止篡改Cookie 作为服务器端生成session的签名
-//   key: config.mongodb.database,//cookie name
-//   cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 },//30 days
+//   key: config.mongodb.database,  //cookie name
+//   cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 },  //30 days
 //   store: new MongoStore({
 //       url: config.mongodb.path + config.mongodb.port + '/' + config.mongodb.database
 //   })
 // }));
 server.use(session({
   secret: config.redis.cookieSecret,  //防止篡改Cookie 作为服务器端生成session的签名
+  cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 },  //30 days
   store: new RedisStore({
     host: config.redis.host,
     port: config.redis.port,
