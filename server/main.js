@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const debug = require('debug')('app:server_main')
 const path = require('path')
 const webpack = require('webpack')
@@ -44,22 +45,10 @@ server.use(session({
 }));
 
 // ------------------------------------
-// 配置后端API地址前缀
-// ------------------------------------
-// global.API_HOST = 'http://192.168.3.131:8080';
-// global.HOST_PLATFORM = [API_HOST, '/platform-app'].join('');
-
-// ------------------------------------
 // 配置页面模版引擎
 // ------------------------------------
 // server.set('views', path.join(__dirname, 'views'));
 // server.set('view engine', 'pug');
-
-// ------------------------------------
-// 配置Mongo数据库
-// ------------------------------------
-// const mongoose = require("mongoose");
-// const db = require('../models/mongo');
 
 // ------------------------------------
 // 定义数据解析器
@@ -75,16 +64,15 @@ server.use(bodyParser.json());
 // ------------------------------------
 // CORS, 跨域资源共享
 // ------------------------------------
-server.all( '*', function ( req, res, next ) {
-  res.set({
-    'Access-Control-Allow-origin': '*',
-    'Access-Control-Allow-Headers': 'X-Requested-With',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-    'Access-Control-Max-Age': '3600',
-    'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
-  } );
-  next();
-});
+server.use(cors())
+// server.use(function(req, res, next) {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+//     res.header('Access-Control-Max-Age', '3600');
+//     res.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
+//     res.header('Access-Control-Allow-Credentials','true');
+//     next();
+// });
 
 // 加载模拟后台接口的逻辑路由
 // 但是无法F5刷新页面，但是HMR代替即可
@@ -113,17 +101,17 @@ if (config.env === 'development') {
   server.use(express.static(paths.client('static')))
 
   // 刷新页面保留 路由功能（但不能使用测试接口功能）
-  // server.use('*', function(req, res, next) {
-  //   const filename = path.join(compiler.outputPath, 'index.html')
-  //   compiler.outputFileSystem.readFile(filename, (err, result) => {
-  //     if (err) {
-  //       return next(err)
-  //     }
-  //     res.set('content-type', 'text/html')
-  //     res.send(result)
-  //     res.end()
-  //   })
-  // })
+  server.use('*', function(req, res, next) {
+    const filename = path.join(compiler.outputPath, 'index.html')
+    compiler.outputFileSystem.readFile(filename, (err, result) => {
+      if (err) {
+        return next(err)
+      }
+      res.set('content-type', 'text/html')
+      res.send(result)
+      res.end()
+    })
+  })
 } else {
   debug('Server is being run outside of live development mode, meaning it will ' +
     'only serve the compiled application bundle in ~/dist. Generally you ' +

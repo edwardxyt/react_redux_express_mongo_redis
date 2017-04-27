@@ -1,8 +1,8 @@
 import { injectReducer } from '../../store/reducers'
 
 export default (store) => ({
-  path: 'elapse',
-  breadcrumbName: "Elapse",
+  path: 'blog',
+  breadcrumbName: "blog",
   getComponent (nextState, cb) {
     require.ensure([], (require) => {
       const Elapse = require('./containers/ElapseContainer').default

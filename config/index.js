@@ -17,6 +17,12 @@ global.MONGO = path.resolve(__dirname, '..') + '/core/mongo';
 global.REDIS = path.resolve(__dirname, '..') + '/core/redis';
 global.API_USER = path.resolve(__dirname, '..') + '/models/api_user';
 
+// ------------------------------------
+// 配置后端API地址前缀
+// ------------------------------------
+// global.API_HOST = 'http://192.168.3.131:8080';
+// global.HOST_PLATFORM = [API_HOST, '/platform-app'].join('');
+
 // ========================================================
 // Default Configuration
 // 默认配置

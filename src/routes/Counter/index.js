@@ -2,6 +2,7 @@ import { injectReducer } from '../../store/reducers'
 
 export default (store) => ({
   path: 'counter',
+  breadcrumbName: "Counter",
   // 异步获取组件，getComponent仅在路由匹配时调用
   getComponent (nextState, cb) {
     // Webpack - 使用'require.ensure' 异步加载模块

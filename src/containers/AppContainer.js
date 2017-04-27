@@ -14,10 +14,10 @@ class AppContainer extends Component {
 
   render () {
     const { routes, store } = this.props
-    console.log(`routes: `, routes);
+    // console.log(`routes: `, routes);
     return (
       <Provider store={store}>
-        <div className="AppContainer" style={{ minHeight: '100%' }}>
+        <div className="AppContainer">
           <Router history={browserHistory} children={routes} />
         </div>
       </Provider>

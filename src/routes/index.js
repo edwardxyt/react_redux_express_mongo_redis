@@ -2,6 +2,7 @@
 // code-splitting
 import CoreLayout from '../layouts/CoreLayout'
 import Home from './Home'
+import blog from './blog'
 import CounterRoute from './Counter'
 import ZenRoute from './Zen'
 import ElapseRoute from './Elapse'
@@ -14,10 +15,12 @@ import Redirect from './PageNotFound/redirect'
 
 export const createRoutes = (store) => ({
   path: '/',
+  breadcrumbName: "Home",
   component: CoreLayout,
   indexRoute: Home,
   childRoutes: [
     CounterRoute(store),
+    blog(store),
     ZenRoute(store),
     ElapseRoute(store),
     RouteRoute(store),

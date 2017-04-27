@@ -39,6 +39,19 @@ a{
   width:1000px;
   margin:0 auto;
 }
-.text-center{
-  text-align: center;
+.custom-image img {
+  display: block;
+}
+.custom-card {
+  padding: 10px 16px;
+}
+.custom-card p {
+  color: #999;
+}
+.footer {
+  margin-top: 24px;
+  height: 48px;
+  line-height: 48px;
+  border-top: 1px solid #ddd;
+  text-align: right;
 }
