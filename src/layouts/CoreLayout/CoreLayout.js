@@ -35,7 +35,7 @@ export class CoreLayout extends Component {
 
   render () {
     const props = this.props
-    console.log(props);
+    // console.log(props);
     // 此时的routes 不是传进来的了 注意是router index.js里分配来的
     return (
       <div className='CoreLayout container text-center'>

@@ -10,10 +10,35 @@ const server = express()
 const paths = config.utils_paths
 
 // ------------------------------------
+// CORS, 跨域资源共享
+// ------------------------------------
+server.use(cors())
+// server.use(function(req, res, next) {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+//     res.header('Access-Control-Max-Age', '3600');
+//     res.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
+//     res.header('Access-Control-Allow-Credentials','true');
+//     next();
+// });
+
+// ------------------------------------
+// 配置Mongo数据库
+// ------------------------------------
+// const mongoose = require("mongoose");
+// const db = require('../models/mongo');
+
+// ------------------------------------
 // 配置网站图标
 // ------------------------------------
 // const favicon = require('serve-favicon');
 // server.use(favicon(path.join(__dirname + '/static/img/favicon.ico')));
+
+// ------------------------------------
+// 配置页面模版引擎
+// ------------------------------------
+// server.set('views', path.join(__dirname, 'views'));
+// server.set('view engine', 'pug');
 
 // ------------------------------------
 // 定义cookie解析器
@@ -23,7 +48,6 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');  //session
 const MongoStore = require('connect-mongo')(session); //写入数据库session
 const RedisStore = require('connect-redis')(session);
-
 server.use(cookieParser());
 // server.use(session({
 //   secret: config.mongodb.cookieSecret,  //防止篡改Cookie 作为服务器端生成session的签名
@@ -45,12 +69,6 @@ server.use(session({
 }));
 
 // ------------------------------------
-// 配置页面模版引擎
-// ------------------------------------
-// server.set('views', path.join(__dirname, 'views'));
-// server.set('view engine', 'pug');
-
-// ------------------------------------
 // 定义数据解析器
 // bodyParser.json 是用来解析json数据格式的。
 // bodyParser.urlencoded 则是用来解析我们通常的form表单提交的数据，也就是请求头中包含这样的信息： Content-Type: application/x-www-form-urlencoded
@@ -62,21 +80,9 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 
 // ------------------------------------
-// CORS, 跨域资源共享
-// ------------------------------------
-server.use(cors())
-// server.use(function(req, res, next) {
-//     res.header('Access-Control-Allow-Origin', '*');
-//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-//     res.header('Access-Control-Max-Age', '3600');
-//     res.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
-//     res.header('Access-Control-Allow-Credentials','true');
-//     next();
-// });
-
 // 加载模拟后台接口的逻辑路由
 // 但是无法F5刷新页面，但是HMR代替即可
-// server.all(require('../core/simulator').apiRouters(server));
+// ------------------------------------
 require('../core/simulator').apiRouters(server)
 
 // ------------------------------------
