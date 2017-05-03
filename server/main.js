@@ -1,5 +1,5 @@
 const express = require('express')
-const cors = require('cors')
+const cors = require('cors');
 const debug = require('debug')('app:server_main')
 const path = require('path')
 const webpack = require('webpack')
