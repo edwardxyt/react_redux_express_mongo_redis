@@ -85,12 +85,12 @@ server.use(bodyParser.json());
 // ------------------------------------
 require('../core/simulator').apiRouters(server)
 
+
 // ------------------------------------
 // 应用Webpack HMR中间件
 // ------------------------------------
 if (config.env === 'development') {
   const compiler = webpack(webpackConfig)
-
   debug('启用webpack dev和HMR(Hot Module Replacement (HRM) 又稱熱替換)中间件。')
   server.use(require('webpack-dev-middleware')(compiler, {
     publicPath: webpackConfig.output.publicPath,
@@ -106,18 +106,21 @@ if (config.env === 'development') {
   // 开发模式下 静态目录指向 /Users/edward/workspaces/react-redux/src/static
   server.use(express.static(paths.client('static')))
 
-  // 刷新页面保留 路由功能（但不能使用测试接口功能）
-  server.use('*', function(req, res, next) {
-    const filename = path.join(compiler.outputPath, 'index.html')
-    compiler.outputFileSystem.readFile(filename, (err, result) => {
-      if (err) {
-        return next(err)
-      }
-      res.set('content-type', 'text/html')
-      res.send(result)
-      res.end()
+  // 这里没写好 但是抽何用
+  setTimeout(function() {
+    debug('browserHistory启动')
+    server.use('*', function(req, res, next) {
+      const filename = path.join(compiler.outputPath, 'index.html')
+      compiler.outputFileSystem.readFile(filename, (err, result) => {
+        if (err) {
+          return next(err)
+        }
+        res.set('content-type', 'text/html')
+        res.send(result)
+        res.end()
+      })
     })
-  })
+  }, 3000);
 } else {
   debug('Server is being run outside of live development mode, meaning it will ' +
     'only serve the compiled application bundle in ~/dist. Generally you ' +

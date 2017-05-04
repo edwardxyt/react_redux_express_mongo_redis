@@ -1,4 +1,6 @@
-const glob = require('glob');
+const path = require('path')
+const fs = require('fs')
+const glob = require('glob')
 const config = require('../config')
 const debug = require('debug')('app:core/simulator')
 
@@ -49,17 +51,26 @@ const apiRouters = (app) => {
     });
 
     // ------------------------------------
+    // browserHistory
+    // 例：/Users/edward/workspaces/react_redux_express_mongo_redis/dist/index.html
+    // ------------------------------------
+    // app.use('*', function(req, res, next) {
+    //   res.sendFile(path.join(ROOT_PATH, '/src/index.html'))
+    // })
+
+
+    // ------------------------------------
     // 404 中间件（middleware）
     // ------------------------------------
-    app.use(function(request, response, next) {
-      console.log("In comes a " + request.method + " to " + request.url);
-      next();
-    });
-
-    app.use(function(request, response) {
-      response.writeHead(404, { "Content-Type": "text/plain" });
-      response.end("404 error!\n");
-    });
+    // app.use(function(request, response, next) {
+    //   debug("In comes a " + request.method + " to " + request.url);
+    //   next();
+    // });
+    
+    // app.use(function(request, response) {
+    //   response.writeHead(404, { "Content-Type": "text/plain" });
+    //   response.end("404 error!\n");
+    // });
 
   });
 };

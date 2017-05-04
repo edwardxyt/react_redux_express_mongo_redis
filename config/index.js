@@ -13,6 +13,7 @@ debug('PORT：', process.env.PORT || 3000);
 // 由于虚拟接口不能很优雅的require到models
 // 全局配置
 // ========================================================
+global.ROOT_PATH = path.resolve(__dirname, '..');
 global.MONGO = path.resolve(__dirname, '..') + '/core/mongo';
 global.REDIS = path.resolve(__dirname, '..') + '/core/redis';
 global.API_USER = path.resolve(__dirname, '..') + '/models/api_user';
