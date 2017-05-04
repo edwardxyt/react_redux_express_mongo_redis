@@ -45,6 +45,34 @@ export const createRoutes = (store) => ({
     an API for async route definitions. Your code splitting should occur
     inside the route `getComponent` function, since it is only invoked
     when the route exists and matches.
+
+    const CourseRoute = {
+      path: 'course/:courseId',
+
+      getChildRoutes(location, callback) {
+        require.ensure([], function (require) {
+          callback(null, [
+            require('./routes/Announcements'),
+            require('./routes/Assignments'),
+            require('./routes/Grades'),
+          ])
+        })
+      },
+
+      getIndexRoute(location, callback) {
+        require.ensure([], function (require) {
+          callback(null, {
+            component: require('./components/Index')
+          })
+        })
+      },
+
+      getComponents(location, callback) {
+        require.ensure([], function (require) {
+          callback(null, require('./components/Course'))
+        })
+      }
+    }
 */
 
 export default createRoutes

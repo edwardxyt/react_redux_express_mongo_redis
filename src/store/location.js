@@ -15,6 +15,7 @@ export function locationChange (location = '/') {
 
 // ------------------------------------
 // Specialized Action Creator
+// 目前只有测试里用到
 // ------------------------------------
 export const updateLocation = ({ dispatch }) => {
   return (nextLocation) => dispatch(locationChange(nextLocation))
