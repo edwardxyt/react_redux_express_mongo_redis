@@ -21,7 +21,7 @@ module.exports = router.get( '/user/findAll', ( req, res, next ) => {
   request.get('http://www.baidu.com', function (error, response, body) {
     // console.log('error:', error);
     // console.log('statusCode:', response && response.statusCode);
-    console.log('body:', body);
+    // console.log('body:', body);
   });
 
   req.session.user = {  //用户信息存入 session

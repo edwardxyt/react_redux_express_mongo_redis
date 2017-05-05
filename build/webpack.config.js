@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const cssnano = require('cssnano')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const NyanProgressPlugin = require('nyan-progress-webpack-plugin')
 const config = require('../config')
 const debug = require('debug')('app:webpack_config')
 
@@ -53,6 +54,7 @@ webpackConfig.output = {
 // favicon: /Users/edward/workspaces/react-redux/src/static/favicon.ico
 // ------------------------------------
 webpackConfig.plugins = [
+  new NyanProgressPlugin(),
   new webpack.DefinePlugin(config.globals),
   new HtmlWebpackPlugin({
     template: paths.client('index.html'),
