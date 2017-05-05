@@ -4,6 +4,7 @@ const debug = require('debug')('app:server_main')
 const path = require('path')
 const webpack = require('webpack')
 const webpackConfig = require('../build/webpack.config')
+const simulator = require('../core/simulator');
 const config = require('../config')
 
 const server = express()
@@ -80,17 +81,11 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 
 // ------------------------------------
-// 加载模拟后台接口的逻辑路由
-// 但是无法F5刷新页面，但是HMR代替即可
-// ------------------------------------
-require('../core/simulator').apiRouters(server)
-
-
-// ------------------------------------
 // 应用Webpack HMR中间件
 // ------------------------------------
+let compiler;
 if (config.env === 'development') {
-  const compiler = webpack(webpackConfig)
+  compiler = webpack(webpackConfig)
   debug('启用webpack dev和HMR(Hot Module Replacement (HRM) 又稱熱替換)中间件。')
   server.use(require('webpack-dev-middleware')(compiler, {
     publicPath: webpackConfig.output.publicPath,
@@ -105,10 +100,24 @@ if (config.env === 'development') {
 
   // 开发模式下 静态目录指向 /Users/edward/workspaces/react-redux/src/static
   server.use(express.static(paths.client('static')))
+} else {
+  debug('Server is being run outside of live development mode, meaning it will ' +
+    'only serve the compiled application bundle in ~/dist. Generally you ' +
+    'do not need an application server for this and can instead use a web ' +
+    'server such as nginx to serve your static files. See the "deployment" ' +
+    'section in the README for more information on deployment strategies.')
 
-  // 这里没写好 但是抽何用
-  setTimeout(function() {
-    debug('browserHistory启动')
+  //生成环境下 直接指向静态目录的 /Users/edward/workspaces/react-redux/dist
+  server.use(express.static(paths.dist()))
+}
+
+// ------------------------------------
+// 加载模拟后台接口的逻辑路由
+// 但是无法F5刷新页面，但是HMR代替即可
+// ------------------------------------
+simulator.apiRouters(server, function(msg){
+  if (config.env === 'development') {
+    debug(msg)
     server.use('*', function(req, res, next) {
       const filename = path.join(compiler.outputPath, 'index.html')
       compiler.outputFileSystem.readFile(filename, (err, result) => {
@@ -120,16 +129,7 @@ if (config.env === 'development') {
         res.end()
       })
     })
-  }, 3000);
-} else {
-  debug('Server is being run outside of live development mode, meaning it will ' +
-    'only serve the compiled application bundle in ~/dist. Generally you ' +
-    'do not need an application server for this and can instead use a web ' +
-    'server such as nginx to serve your static files. See the "deployment" ' +
-    'section in the README for more information on deployment strategies.')
-
-  //生成环境下 直接指向静态目录的 /Users/edward/workspaces/react-redux/dist
-  server.use(express.static(paths.dist()))
-}
+  }
+});
 
 module.exports = server

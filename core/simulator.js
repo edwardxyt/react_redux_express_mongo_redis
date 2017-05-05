@@ -14,7 +14,7 @@ const PREFIX_API = config.compiler_api
  * 该路由加载暂时适用于测试开发阶段,只针对api进行路由，需要继续优化修改
  *
  */
-const apiRouters = (app) => {
+const apiRouters = (app, cb) => {
   return glob('./simulator/**/*.js', {}, (er, files) => {
     let routeFiles = [];
 
@@ -41,6 +41,15 @@ const apiRouters = (app) => {
     });
 
     // 批量加载路由
+    // routeFiles 如下结构
+    // [
+    //   '../simulator/generator/getGuuid',
+    //   '../simulator/redis/text',
+    //   '../simulator/user/addUser',
+    //   '../simulator/user/delUser',
+    //   '../simulator/user/findAll',
+    //   '../simulator/user/updateUser'
+    // ]
     debug('  --> ::::::::  加载自定义路由 ::::::::::::');
     routeFiles.forEach( (routeFile, key) => {
       // 例：app.use('/api', require('../simulator/generator/getGuuid'))
@@ -48,6 +57,9 @@ const apiRouters = (app) => {
       app.use(PREFIX_API, require(routeFile))
 
       debug(`  --> ${++key} ${PREFIX_API}${routeFile}`);
+      if (routeFiles.length === key) {
+        cb('browserHistory启动');
+      }
     });
 
     // ------------------------------------
@@ -66,7 +78,7 @@ const apiRouters = (app) => {
     //   debug("In comes a " + request.method + " to " + request.url);
     //   next();
     // });
-    
+
     // app.use(function(request, response) {
     //   response.writeHead(404, { "Content-Type": "text/plain" });
     //   response.end("404 error!\n");
