@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { applyRouterMiddleware, browserHistory, Router } from 'react-router'
-import { useScroll } from 'react-router-scroll'
+import { browserHistory, Router } from 'react-router'
 import { Provider } from 'react-redux'
 
 class AppContainer extends Component {
@@ -19,16 +18,11 @@ class AppContainer extends Component {
     return (
       <Provider store={store}>
         <div className="AppContainer">
-          <Router history={browserHistory} children={routes} render={applyRouterMiddleware(useScroll())} />
+          <Router history={browserHistory} children={routes} />
         </div>
       </Provider>
     )
   }
-}
-
-AppContainer.propTypes = {
-  routes : PropTypes.object.isRequired,
-  store  : PropTypes.object.isRequired
 }
 
 export default AppContainer
