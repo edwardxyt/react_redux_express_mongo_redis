@@ -1,24 +1,25 @@
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
+// import TestUtils from 'react-addons-test-utils'
+import ReactTestUtils from 'react-dom/test-utils'
 import CoreLayout from 'layouts/CoreLayout/CoreLayout'
 
-function shallowRender (component) {
-  const renderer = TestUtils.createRenderer()
+function shallowRender(component) {
+  const renderer = ReactTestUtils.createRenderer()
 
   renderer.render(component)
   return renderer.getRenderOutput()
 }
 
-function shallowRenderWithProps (props = {}) {
-  return shallowRender(<CoreLayout {...props} />)
+function shallowRenderWithProps(props = {}) {
+  return shallowRender(<CoreLayout {...props}/>)
 }
 
-describe('(Layout) Core', function () {
+describe('(Layout) Core', function() {
   let _component
   let _props
   let _child
 
-  beforeEach(function () {
+  beforeEach(function() {
     _child = <h1 className='child'>Child</h1>
     _props = {
       children: _child
@@ -27,7 +28,7 @@ describe('(Layout) Core', function () {
     _component = shallowRenderWithProps(_props)
   })
 
-  it('Should render as a <div>.', function () {
+  it('Should render as a <div>.', function() {
     expect(_component.type).to.equal('div')
   })
 })

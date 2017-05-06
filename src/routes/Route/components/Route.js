@@ -1,24 +1,26 @@
-import React, { Component } from 'react'
-import { Link, withRouter } from 'react-router'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
+import {Link, withRouter} from 'react-router'
 
 class Route extends Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.redirect = this.redirect.bind(this)
   }
 
-  redirect () {
+  redirect() {
     this.props.router.push('/form')
   }
 
-  render () {
-    const { location } = this.props
+  render() {
+    const {location} = this.props
 
     return (
       <div>
         <h1>
-          Path: <Link to='/form'>{location.pathname}</Link>
+          Path:
+          <Link to='/form'>{location.pathname}</Link>
         </h1>
         <div>
           <button onClick={this.redirect}>Go</button>
@@ -29,8 +31,8 @@ class Route extends Component {
 }
 
 Route.propTypes = {
-  location: React.PropTypes.object.isRequired,
-  router: React.PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired
 }
 
 export default withRouter(Route)

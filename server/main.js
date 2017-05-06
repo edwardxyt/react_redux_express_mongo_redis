@@ -46,7 +46,7 @@ server.use(cors())
 // session 持久化存储
 // ------------------------------------
 const cookieParser = require('cookie-parser');
-const session = require('express-session');  //session
+const session = require('express-session'); //session
 const MongoStore = require('connect-mongo')(session); //写入数据库session
 const RedisStore = require('connect-redis')(session);
 server.use(cookieParser());
@@ -59,14 +59,11 @@ server.use(cookieParser());
 //   })
 // }));
 server.use(session({
-  secret: config.redis.cookieSecret,  //防止篡改Cookie 作为服务器端生成session的签名
-  cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 },  //30 days
-  store: new RedisStore({
-    host: config.redis.host,
-    port: config.redis.port,
-    db: 1,
-    pass: config.redis.password
-  })
+  secret: config.redis.cookieSecret, //防止篡改Cookie 作为服务器端生成session的签名
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 * 30
+  }, //30 days
+  store: new RedisStore({host: config.redis.host, port: config.redis.port, db: 1, pass: config.redis.password})
 }));
 
 // ------------------------------------
@@ -77,7 +74,7 @@ server.use(session({
 // extended 选项允许配置使用 querystring(false) 或 qs(true) 来解析数据，默认值是true，但这已经是不被赞成的了
 // ------------------------------------
 const bodyParser = require('body-parser');
-server.use(bodyParser.urlencoded({ extended: false }));
+server.use(bodyParser.urlencoded({extended: false}));
 server.use(bodyParser.json());
 
 // ------------------------------------
@@ -115,7 +112,7 @@ if (config.env === 'development') {
 // 加载模拟后台接口的逻辑路由
 // 但是无法F5刷新页面，但是HMR代替即可
 // ------------------------------------
-simulator.apiRouters(server, function(msg){
+simulator.apiRouters(server, function(msg) {
   if (config.env === 'development') {
     debug(msg)
     server.use('*', function(req, res, next) {
@@ -129,6 +126,8 @@ simulator.apiRouters(server, function(msg){
         res.end()
       })
     })
+  } else {
+    debug(`Go in deploy:prod.`)
   }
 });
 

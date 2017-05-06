@@ -21,9 +21,7 @@ let render = () => {
   const routes = require('./routes/index').default(store)
 
   ReactDOM.render(
-    <AppContainer store={store} routes={routes} />,
-    MOUNT_NODE
-  )
+    <AppContainer store={store} routes={routes}/>, MOUNT_NODE)
 }
 
 // ========================================================
@@ -32,7 +30,7 @@ let render = () => {
 // ========================================================
 if (__DEV__) {
   if (window.devToolsExtension) {
-    window.devToolsExtension.open()
+    // window.devToolsExtension.open()
   }
 }
 
@@ -44,7 +42,8 @@ if (__DEV__ && module.hot) {
   const renderError = (error) => {
     const RedBox = require('redbox-react').default
 
-    ReactDOM.render(<RedBox error={error} />, MOUNT_NODE)
+    ReactDOM.render(
+      <RedBox error={error}/>, MOUNT_NODE)
   }
 
   // 在try / catch中包装渲染
@@ -60,12 +59,10 @@ if (__DEV__ && module.hot) {
   // 设置热模块更换
   // 在你的代码中插入热替换代码
   // setImmediate 方法 是在当前"任务队列"的尾部添加事件
-  module.hot.accept('./routes/index', () =>
-    setImmediate(() => {
-      ReactDOM.unmountComponentAtNode(MOUNT_NODE)
-      render()
-    })
-  )
+  module.hot.accept('./routes/index', () => setImmediate(() => {
+    ReactDOM.unmountComponentAtNode(MOUNT_NODE)
+    render()
+  }))
 }
 
 // ========================================================
