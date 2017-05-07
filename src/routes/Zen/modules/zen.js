@@ -9,10 +9,8 @@ const CLEAR_ZEN = 'CLEAR_ZEN'
 // Actions
 // ------------------------------------
 
-function requestZen () {
-  return {
-    type: REQUEST_ZEN
-  }
+function requestZen() {
+  return {type: REQUEST_ZEN}
 }
 
 let avaliableId = 0
@@ -24,18 +22,16 @@ export const receiveZen = (value) => ({
   }
 })
 
-export const clearZen = () => ({
-  type: CLEAR_ZEN
-})
+export const clearZen = () => ({type: CLEAR_ZEN})
 
-export function fetchZen () {
+export function fetchZen() {
   return (dispatch, getState) => {
-    if (getState().zen.fetching) return
+    // 验证从复提交
+    if (getState().zen.fetching)
+      return
 
     dispatch(requestZen())
-    return fetch('https://api.github.com/zen')
-      .then(data => data.text())
-      .then(text => dispatch(receiveZen(text)))
+    return fetch('https://api.github.com/zen').then(data => data.text()).then(text => dispatch(receiveZen(text)))
   }
 }
 
@@ -51,25 +47,37 @@ export const actions = {
 // ------------------------------------
 const ACTION_HANDLERS = {
   [REQUEST_ZEN]: (state) => {
-    return ({...state, fetching: true})
+    return ({
+      ...state,
+      fetching: true
+    })
   },
   [RECEIVE_ZEN]: (state, action) => {
-    return ({...state, fetching: false, text: state.text.concat(action.payload)})
+    return ({
+      ...state,
+      fetching: false,
+      text: state.text.concat(action.payload)
+    })
   },
   [CLEAR_ZEN]: (state) => {
-    return ({...state, text: []})
+    return ({
+      ...state,
+      text: []
+    })
   }
 }
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = {
+const initialState = { // 数据结构
   fetching: false,
   text: []
 }
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
 
-  return handler ? handler(state, action) : state
+  return handler
+    ? handler(state, action)
+    : state
 }

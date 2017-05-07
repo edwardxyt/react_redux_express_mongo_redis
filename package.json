@@ -81,7 +81,7 @@
   "license": "WTFPL",
   "dependencies": {
     "antd": "^2.6.0",
-    "axios": "^0.15.3",
+    "axios": "^0.16.1",
     "babel-cli": "^6.18.0",
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",
@@ -104,7 +104,6 @@
     "cssnano": "^3.7.4",
     "debug": "^2.2.0",
     "extract-text-webpack-plugin": "^1.0.0",
-    "fetch-jsonp": "^1.0.6",
     "file-loader": "^0.11.1",
     "fs-extra": "^1.0.0",
     "glob": "^7.1.1",
@@ -137,7 +136,6 @@
     "style-loader": "^0.17.0",
     "url-loader": "^0.5.6",
     "webpack": "^1.12.14",
-    "whatwg-fetch": "^2.0.2",
     "yargs": "^6.3.0"
   },
   "devDependencies": {
@@ -147,7 +145,7 @@
     "chai-as-promised": "^6.0.0",
     "chai-enzyme": "^0.6.1",
     "cheerio": "^0.22.0",
-    "codecov": "^1.0.1",
+    "codecov": "^2.1.0",
     "enzyme": "^2.0.0",
     "eslint": "^3.0.1",
     "eslint-config-standard": "^6.0.0",
