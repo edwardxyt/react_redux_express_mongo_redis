@@ -112,9 +112,28 @@ if (config.env === 'development') {
 // 加载模拟后台接口的逻辑路由
 // 但是无法F5刷新页面，但是HMR代替即可
 // ------------------------------------
-simulator.apiRouters(server, function(msg) {
+// simulator.apiRouters(server, function(msg) {
+//   if (config.env === 'development') {
+//     debug(msg)
+//     server.use('*', function(req, res, next) {
+//       const filename = path.join(compiler.outputPath, 'index.html')
+//       compiler.outputFileSystem.readFile(filename, (err, result) => {
+//         if (err) {
+//           return next(err)
+//         }
+//         res.set('content-type', 'text/html')
+//         res.send(result)
+//         res.end()
+//       })
+//     })
+//   } else {
+//     debug(`Go in deploy:prod.`)
+//   }
+// });
+
+simulator.apiPromise(server).then((value) => {
   if (config.env === 'development') {
-    debug(msg)
+    debug(value)
     server.use('*', function(req, res, next) {
       const filename = path.join(compiler.outputPath, 'index.html')
       compiler.outputFileSystem.readFile(filename, (err, result) => {
@@ -129,6 +148,8 @@ simulator.apiRouters(server, function(msg) {
   } else {
     debug(`Go in deploy:prod.`)
   }
+}).catch(function(error) {
+  console.log('simulator发生错误！', error);
 });
 
 module.exports = server

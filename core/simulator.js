@@ -51,12 +51,12 @@ const apiRouters = (app, cb) => {
     //   '../simulator/user/updateUser'
     // ]
     debug('  --> ::::::::  加载自定义路由 ::::::::::::');
-    routeFiles.forEach( (routeFile, key) => {
+    routeFiles.forEach((routeFile, key) => {
       // 例：app.use('/api', require('../simulator/generator/getGuuid'))
       // 例：http://192.168.31.237:3000/api/generator/getGuuid
       app.use(PREFIX_API, require(routeFile))
 
-      debug(`  --> ${++key} ${PREFIX_API}${routeFile}`);
+      debug(`  --> ${++ key} ${PREFIX_API}${routeFile}`);
       if (routeFiles.length === key) {
         cb('browserHistory启动');
       }
@@ -69,7 +69,6 @@ const apiRouters = (app, cb) => {
     // app.use('*', function(req, res, next) {
     //   res.sendFile(path.join(ROOT_PATH, '/src/index.html'))
     // })
-
 
     // ------------------------------------
     // 404 中间件（middleware）
@@ -87,4 +86,69 @@ const apiRouters = (app, cb) => {
   });
 };
 
-module.exports = { apiRouters };
+const apiPromise = (app) => {
+  return new Promise(function(resolve, reject) {
+    let apis = glob('./simulator/**/*.js', {}, (er, files) => {
+      let routeFiles = [];
+
+      files.forEach((file) => {
+        // console.log(file);  // ./simulator/generator/getGuuid.js
+        let jsFile = file.replace('.js', '');
+        // console.log(jsFile) // ./simulator/generator/getGuuid
+        let strFile = '../'.concat(jsFile.slice(2));
+        // console.log(strFile); // ../simulator/generator/getGuuid
+        routeFiles.push(strFile);
+
+      });
+
+      // 批量加载路由
+      // routeFiles 如下结构
+      // [
+      //   '../simulator/generator/getGuuid',
+      //   '../simulator/redis/text',
+      //   '../simulator/user/addUser',
+      //   '../simulator/user/delUser',
+      //   '../simulator/user/findAll',
+      //   '../simulator/user/updateUser'
+      // ]
+      debug('  --> ::::::::  加载自定义路由 ::::::::::::');
+      routeFiles.forEach((routeFile, key) => {
+        // 例：app.use('/api', require('../simulator/generator/getGuuid'))
+        // 例：http://192.168.31.237:3000/api/generator/getGuuid
+        app.use(PREFIX_API, require(routeFile))
+
+        debug(`  --> ${++ key} ${PREFIX_API}${routeFile}`);
+        if (routeFiles.length === key) {
+          resolve('browserHistory启动');
+        }
+      });
+
+      // ------------------------------------
+      // browserHistory
+      // 例：/Users/edward/workspaces/react_redux_express_mongo_redis/dist/index.html
+      // ------------------------------------
+      // app.use('*', function(req, res, next) {
+      //   res.sendFile(path.join(ROOT_PATH, '/src/index.html'))
+      // })
+
+      // ------------------------------------
+      // 404 中间件（middleware）
+      // ------------------------------------
+      // app.use(function(request, response, next) {
+      //   debug("In comes a " + request.method + " to " + request.url);
+      //   next();
+      // });
+
+      // app.use(function(request, response) {
+      //   response.writeHead(404, { "Content-Type": "text/plain" });
+      //   response.end("404 error!\n");
+      // });
+
+    });
+  });
+}
+
+module.exports = {
+  apiRouters,
+  apiPromise
+};
