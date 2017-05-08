@@ -62,54 +62,47 @@ webpackConfig.plugins = [
     filename: 'index.html',
     inject: 'body',
     minify: {
-      collapseWhitespace: true
+      // caseSensitive: false, //是否大小写敏感
+      collapseBooleanAttributes: true, //是否简写boolean格式的属性如：disabled="disabled" 简写为disabled
+      collapseWhitespace: true //是否去除空格
     }
   })
 ]
 
 if (__DEV__) {
   debug('启用实时开发插件 / Enable plugins for live development (HMR, NoErrors).')
-  webpackConfig.plugins.push(
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  )
+  webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin(), new webpack.NoErrorsPlugin())
 } else if (__PROD__) {
-  debug('启用生产插件 / Enable plugins for production (OccurenceOrder, Dedupe & UglifyJS).')
-  webpackConfig.plugins.push(
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        unused: true,
-        dead_code: true,
-        warnings: false
-      }
-    })
-  )
+  debug('启用生产插件 / Enable plugins for production (OccurenceOrder(排序输出), Dedupe(删除重复数据) & UglifyJS(压缩代码)).')
+  webpackConfig.plugins.push(new webpack.optimize.OccurrenceOrderPlugin(), new webpack.optimize.DedupePlugin(), new webpack.optimize.UglifyJsPlugin({
+    compress: {
+      unused: true,
+      dead_code: true,
+      warnings: false
+    }
+  }))
 }
 
 // 在测试期间不要拆分包，因为我们只需要导入一个包
 if (!__TEST__) {
-  webpackConfig.plugins.push(
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor']
-    })
-  )
+  webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({names: ['vendor']}))
 }
 
 // ------------------------------------
 // Loaders
 // ------------------------------------
 // JavaScript / JSON
-webpackConfig.module.loaders = [{
-  test: /\.(js|jsx)$/,
-  exclude: /node_modules/,
-  loader: 'babel',
-  query: config.compiler_babel
-}, {
-  test: /\.json$/,
-  loader: 'json'
-}]
+webpackConfig.module.loaders = [
+  {
+    test: /\.(js|jsx)$/,
+    exclude: /node_modules/,
+    loader: 'babel',
+    query: config.compiler_babel
+  }, {
+    test: /\.json$/,
+    loader: 'json'
+  }
+]
 
 // ------------------------------------
 // Style Loaders
@@ -120,29 +113,19 @@ const BASE_CSS_LOADER = 'css?sourceMap&-minimize'
 webpackConfig.module.loaders.push({
   test: /\.scss$/,
   exclude: null,
-  loaders: [
-    'style',
-    BASE_CSS_LOADER,
-    'postcss',
-    'sass?sourceMap'
-  ]
+  loaders: ['style', BASE_CSS_LOADER, 'postcss', 'sass?sourceMap']
 })
 webpackConfig.module.loaders.push({
   test: /\.css$/,
   exclude: null,
-  loaders: [
-    'style',
-    BASE_CSS_LOADER,
-    'postcss'
-  ]
+  loaders: ['style', BASE_CSS_LOADER, 'postcss']
 })
 
 webpackConfig.sassLoader = {
   includePaths: paths.client('styles')
 }
 
-webpackConfig.postcss = [
-  cssnano({
+webpackConfig.postcss = [cssnano({
     autoprefixer: {
       add: true,
       remove: true,
@@ -156,44 +139,54 @@ webpackConfig.postcss = [
     reduceIdents: false,
     safe: true,
     sourcemap: true
-  })
-]
+  })]
 
 // File loaders
 /* eslint-disable */
-webpackConfig.module.loaders.push(
-  { test: /\.woff(\?.*)?$/,  loader: 'url?prefix=fonts/&name=[hash:base64:20].[ext]&limit=10000&mimetype=application/font-woff' },
-  { test: /\.woff2(\?.*)?$/, loader: 'url?prefix=fonts/&name=[hash:base64:20].[ext]&limit=10000&mimetype=application/font-woff2' },
-  { test: /\.otf(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[hash:base64:20].[ext]&limit=10000&mimetype=font/opentype' },
-  { test: /\.ttf(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[hash:base64:20].[ext]&limit=10000&mimetype=application/octet-stream' },
-  { test: /\.eot(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[hash:base64:20].[ext]' },
-  { test: /\.svg(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[hash:base64:20].[ext]&limit=10000&mimetype=image/svg+xml' },
-  { test: /\.(png|jpg|gif)$/,    loader: 'url?limit=8192' }
-)
+webpackConfig.module.loaders.push({
+  test: /\.woff(\?.*)?$/,
+  loader: 'url?prefix=fonts/&name=[hash:base64:20].[ext]&limit=10000&mimetype=application/font-woff'
+}, {
+  test: /\.woff2(\?.*)?$/,
+  loader: 'url?prefix=fonts/&name=[hash:base64:20].[ext]&limit=10000&mimetype=application/font-woff2'
+}, {
+  test: /\.otf(\?.*)?$/,
+  loader: 'file?prefix=fonts/&name=[hash:base64:20].[ext]&limit=10000&mimetype=font/opentype'
+}, {
+  test: /\.ttf(\?.*)?$/,
+  loader: 'url?prefix=fonts/&name=[hash:base64:20].[ext]&limit=10000&mimetype=application/octet-stream'
+}, {
+  test: /\.eot(\?.*)?$/,
+  loader: 'file?prefix=fonts/&name=[hash:base64:20].[ext]'
+}, {
+  test: /\.svg(\?.*)?$/,
+  loader: 'url?prefix=fonts/&name=[hash:base64:20].[ext]&limit=10000&mimetype=image/svg+xml'
+}, {
+  test: /\.(png|jpg|gif)$/,
+  loader: 'url?limit=8192'
+})
 /* eslint-enable */
 
 // ------------------------------------
 // Finalize Configuration
+// 完成配置
 // ------------------------------------
 // when we don't know the public path (we know it only when HMR is enabled [in development]) we
 // need to use the extractTextPlugin to fix this issue:
 // http://stackoverflow.com/questions/34133808/webpack-ots-parsing-error-loading-fonts/34133809#34133809
 if (!__DEV__) {
   debug('将 ExtractTextPlugin 应用于CSS加载程序.')
-  webpackConfig.module.loaders.filter((loader) =>
-    loader.loaders && loader.loaders.find((name) => /css/.test(name.split('?')[0]))
-  ).forEach((loader) => {
+  // console.log(webpackConfig.module.loaders);
+  webpackConfig.module.loaders.filter((loader) => loader.loaders && loader.loaders.find((name) => /css/.test(name.split('?')[0]))).forEach((loader) => {
     const first = loader.loaders[0]
     const rest = loader.loaders.slice(1)
     loader.loader = ExtractTextPlugin.extract(first, rest.join('!'))
     delete loader.loaders
   })
-
-  webpackConfig.plugins.push(
-    new ExtractTextPlugin('[contenthash].css', {
-      allChunks: true
-    })
-  )
+  // console.log(webpackConfig.module.loaders);
+  // loader: '/Users/edward/workspaces/react_redux_express_mongo_redis/node_modules/_extract-text-webpack-plugin@1.0.1@extract-text-webpack-plugin/loader.js?{"omit":1,"extract":true,"remove":true}!style!css?sourceMap&-minimize!postcss'
+  // loaders: [ 'style', 'css?sourceMap&-minimize', 'postcss' ]
+  webpackConfig.plugins.push(new ExtractTextPlugin('[contenthash].css', {allChunks: true}))
 }
 
 module.exports = webpackConfig

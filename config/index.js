@@ -29,17 +29,17 @@ global.API_USER = path.resolve(__dirname, '..') + '/models/api_user';
 // 默认配置
 // ========================================================
 const config = {
-  env : process.env.NODE_ENV || 'development',
+  env: process.env.NODE_ENV || 'development',
 
   // ----------------------------------
   // Project Structure
   // 项目结构
   // ----------------------------------
-  path_base  : path.resolve(__dirname, '..'),
-  dir_client : 'src',
-  dir_dist   : 'dist',
-  dir_server : 'server',
-  dir_test   : 'tests',
+  path_base: path.resolve(__dirname, '..'),
+  dir_client: 'src',
+  dir_dist: 'dist',
+  dir_server: 'server',
+  dir_test: 'tests',
 
   // ----------------------------------
   // Server Configuration
@@ -48,43 +48,52 @@ const config = {
   // package.json 读取config对象里的配置
   // const PORT = process.env.npm_package_config_port
   // ----------------------------------
-  server_host : ip.address(), // use string 'localhost' to prevent exposure on local network
-  server_port : process.env.PORT || 3000,
+  server_host: ip.address(), // use string 'localhost' to prevent exposure on local network
+  server_port: process.env.PORT || 3000,
 
   // ----------------------------------
   // Compiler Configuration
   // 编译器配置
   // ----------------------------------
-  compiler_babel : {
-    cacheDirectory : true,
-    plugins        : ['transform-runtime', ["import", { libraryName: "antd", style: "css" }]],
-    presets        : ['es2015', 'react', 'stage-0']
+  compiler_babel: {
+    cacheDirectory: true,
+    plugins: [
+      'transform-runtime',
+      [
+        "import", {
+          libraryName: "antd",
+          style: "css"
+        }
+      ]
+    ],
+    presets: ['es2015', 'react', 'stage-0']
   },
-  compiler_devtool         : 'source-map',
-  compiler_hash_type       : 'hash',
-  compiler_fail_on_warning : false,
-  compiler_quiet           : false,
-  compiler_public_path     : '/',
-  compiler_api   : '/api',
-  compiler_stats           : {
-    chunks : false,
-    chunkModules : false,
-    colors : true
+  compiler_devtool: 'source-map',
+  compiler_hash_type: 'hash',
+  compiler_fail_on_warning: false,
+  compiler_quiet: false,
+  compiler_public_path: '/',
+  compiler_api: '/api',
+  compiler_stats: {
+    chunks: false,
+    chunkModules: false,
+    colors: true
   },
-  compiler_vendors : [
-    'react',
-    'react-redux',
-    'react-router',
-    'redux'
+  compiler_vendors: [
+    'react', 'react-redux', 'react-router', 'redux'
   ],
 
   // ----------------------------------
   // Test Configuration
   // 测试配置
   // ----------------------------------
-  coverage_reporters : [
-    { type : 'text-summary' },
-    { type : 'lcov', dir : 'coverage' }
+  coverage_reporters: [
+    {
+      type: 'text-summary'
+    }, {
+      type: 'lcov',
+      dir: 'coverage'
+    }
   ],
 
   // ----------------------------------
@@ -120,15 +129,15 @@ const config = {
 // ------------------------------------
 // N.B.: globals added here must _also_ be added to .eslintrc
 config.globals = {
-  'process.env'  : {
-    'NODE_ENV' : JSON.stringify(config.env)
+  'process.env': {
+    'NODE_ENV': JSON.stringify(config.env)
   },
-  'NODE_ENV'     : config.env,
-  '__DEV__'      : config.env === 'development',
-  '__PROD__'     : config.env === 'production',
-  '__TEST__'     : config.env === 'test',
-  '__COVERAGE__' : !argv.watch && config.env === 'test',
-  '__BASENAME__' : JSON.stringify(process.env.BASENAME || '')
+  'NODE_ENV': config.env,
+  '__DEV__': config.env === 'development',
+  '__PROD__': config.env === 'production',
+  '__TEST__': config.env === 'test',
+  '__COVERAGE__': !argv.watch && config.env === 'test',
+  '__BASENAME__': JSON.stringify(process.env.BASENAME || '')
 }
 
 // ------------------------------------
@@ -137,23 +146,20 @@ config.globals = {
 // ------------------------------------
 const pkg = require('../package.json')
 
-config.compiler_vendors = config.compiler_vendors
-  .filter((dep) => {
-    if (pkg.dependencies[dep]) return true
+config.compiler_vendors = config.compiler_vendors.filter((dep) => {
+  if (pkg.dependencies[dep])
+    return true
 
-    debug(
-      `Package "${dep}" was not found as an npm dependency in package.json; ` +
-      `it won't be included in the webpack vendor bundle.
-       Consider removing it from compiler_vendors in ~/config/index.js`
-    )
-  })
+  debug(`Package "${dep}" was not found as an npm dependency in package.json; ` + `it won't be included in the webpack vendor bundle.
+       Consider removing it from compiler_vendors in ~/config/index.js`)
+})
 
 // ------------------------------------
 // Utilities
 // 实用程序
 // path.resolve 它可以接受多个参数，依次表示所要进入的路径，直到将最后一个参数转为绝对路径。如果根据参数无法得到绝对路径，就以当前所在路径作为基准。除了根目录，该方法的返回值都不带尾部的斜杠。
 // ------------------------------------
-function base () {
+function base() {
   const args = [config.path_base].concat([].slice.call(arguments))
   // debug(args);
   // debug(path.resolve.apply(path, args));
@@ -161,9 +167,9 @@ function base () {
 }
 
 config.utils_paths = {
-  base   : base,
-  client : base.bind(null, config.dir_client),
-  dist   : base.bind(null, config.dir_dist)
+  base: base,
+  client: base.bind(null, config.dir_client),
+  dist: base.bind(null, config.dir_dist)
 }
 
 // ========================================================
