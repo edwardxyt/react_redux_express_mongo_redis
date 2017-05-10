@@ -1,6 +1,7 @@
 import {applyMiddleware, compose, createStore} from 'redux'
 import thunk from 'redux-thunk'
 import logger from 'redux-logger'
+import promise from 'redux-promise'
 import {browserHistory} from 'react-router'
 import makeRootReducer from './reducers'
 import {updateLocation} from './location'
@@ -12,9 +13,9 @@ export default(initialState = {}) => {
   // ======================================================
   let middleware;
   if (__DEV__) {
-    middleware = [thunk, logger]
+    middleware = [thunk, promise, logger]
   } else {
-    middleware = [thunk]
+    middleware = [thunk, promise]
   }
 
   // ======================================================
