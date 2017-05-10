@@ -53,7 +53,6 @@ webpackConfig.output = {
 // favicon: /Users/edward/workspaces/react-redux/src/static/favicon.ico
 // ------------------------------------
 webpackConfig.plugins = [
-  // new NyanProgressPlugin(),  //真没用
   new webpack.DefinePlugin(config.globals),
   new HtmlWebpackPlugin({
     template: paths.client('index.html'),

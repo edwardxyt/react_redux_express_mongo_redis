@@ -31,4 +31,9 @@ class AppContainer extends Component {
   }
 }
 
+AppContainer.propTypes = {
+  routes: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired
+}
+
 export default AppContainer
