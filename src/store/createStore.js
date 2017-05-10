@@ -1,19 +1,19 @@
-import { applyMiddleware, compose, createStore } from 'redux'
+import {applyMiddleware, compose, createStore} from 'redux'
 import thunk from 'redux-thunk'
-import createLogger from 'redux-logger'
-import { browserHistory } from 'react-router'
+import logger from 'redux-logger'
+import {browserHistory} from 'react-router'
 import makeRootReducer from './reducers'
-import { updateLocation } from './location'
+import {updateLocation} from './location'
 
-export default (initialState = {}) => {
+export default(initialState = {}) => {
   // ======================================================
   // Middleware Configuration
   // 调试中间件
   // ======================================================
   let middleware;
   if (__DEV__) {
-    middleware = [thunk, createLogger({level: 'log', collapsed: true})]
-  }else {
+    middleware = [thunk, logger]
+  } else {
     middleware = [thunk]
   }
 
@@ -33,14 +33,7 @@ export default (initialState = {}) => {
   // Store Instantiation and HMR Setup
   // 仓库实例化、HMR设置
   // ======================================================
-  const store = createStore(
-    makeRootReducer(),
-    initialState,
-    compose(
-      applyMiddleware(...middleware),
-      ...enhancers
-    )
-  )
+  const store = createStore(makeRootReducer(), initialState, compose(applyMiddleware(...middleware), ...enhancers))
   store.asyncReducers = {}
 
   // 想要取消订阅，请随时调用`store.unsubscribeHistory()`
