@@ -8,3 +8,4 @@ database
 dist
 coverage
 .idea/
+.vscode/

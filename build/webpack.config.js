@@ -177,10 +177,14 @@ if (!__DEV__) {
   debug('将 ExtractTextPlugin 应用于CSS加载程序.')
   // console.log(webpackConfig.module.loaders);
   webpackConfig.module.loaders.filter((loader) => loader.loaders && loader.loaders.find((name) => /css/.test(name.split('?')[0]))).forEach((loader) => {
+    // console.log(loader);
     const first = loader.loaders[0]
     const rest = loader.loaders.slice(1)
+    // console.log(first, rest);
+    // 切换loaders 变成loader字符串而已
     loader.loader = ExtractTextPlugin.extract(first, rest.join('!'))
     delete loader.loaders
+    console.log(loader);
   })
   // console.log(webpackConfig.module.loaders);
   // loader: '/Users/edward/workspaces/react_redux_express_mongo_redis/node_modules/_extract-text-webpack-plugin@1.0.1@extract-text-webpack-plugin/loader.js?{"omit":1,"extract":true,"remove":true}!style!css?sourceMap&-minimize!postcss'
