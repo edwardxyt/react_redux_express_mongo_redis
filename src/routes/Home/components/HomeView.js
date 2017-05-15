@@ -7,6 +7,13 @@ import createG2 from 'g2-react';
 import {Stat} from 'g2';
 import data from '../modules/data.json';
 
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+NProgress.start();
+
 class HigherChart extends Component {
 
   constructor(props, ...others) {
@@ -70,6 +77,7 @@ export default class HomeView extends Component {
         <h4>Welcome!</h4>
         <img alt='This is a duck, because Redux!' className='duck' src={DuckImage}/>
         <MyComponent/>
+        <Editor/>
       </div>
     )
   }
