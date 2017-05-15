@@ -29,7 +29,7 @@ const webpackConfig = {
 const APP_ENTRY = paths.client('main.js')
 webpackConfig.entry = {
   app: __DEV__
-    ? [APP_ENTRY].concat(`webpack-hot-middleware/client?path=${config.compiler_public_path}__webpack_hmr`)
+    ? [APP_ENTRY].concat(`webpack-hot-middleware/client?path=${config.compiler_public_path}__webpack_hmr`, `babel-polyfill`)
     : [APP_ENTRY],
   vendor: config.compiler_vendors
 }
@@ -184,7 +184,7 @@ if (!__DEV__) {
     // 切换loaders 变成loader字符串而已
     loader.loader = ExtractTextPlugin.extract(first, rest.join('!'))
     delete loader.loaders
-    console.log(loader);
+    // console.log(loader);
   })
   // console.log(webpackConfig.module.loaders);
   // loader: '/Users/edward/workspaces/react_redux_express_mongo_redis/node_modules/_extract-text-webpack-plugin@1.0.1@extract-text-webpack-plugin/loader.js?{"omit":1,"extract":true,"remove":true}!style!css?sourceMap&-minimize!postcss'

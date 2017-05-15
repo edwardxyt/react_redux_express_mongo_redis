@@ -80,7 +80,12 @@ const config = {
     colors: true
   },
   compiler_vendors: [
-    'react', 'react-redux', 'react-router', 'redux'
+    'babel-polyfill',
+    'history',
+    'react',
+    'react-redux',
+    'react-router',
+    'redux'
   ],
 
   // ----------------------------------
