@@ -10,10 +10,6 @@ import data from '../modules/data.json';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
-NProgress.start();
-
 class HigherChart extends Component {
 
   constructor(props, ...others) {
