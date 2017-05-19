@@ -14,7 +14,6 @@ module.exports = {
   // ======================================================
   production: (config) => ({
     compiler_public_path: '/',
-    prefix_api: '/project',
     compiler_fail_on_warning: false,
     compiler_hash_type: 'chunkhash',
     compiler_devtool: null,
