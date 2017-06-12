@@ -50,7 +50,5 @@ _.map(arr,(elem, index)=> {
 })
 
 module.exports = {
-  arr,
-  HOSTS,
-  API_HOST
+  arr
 }
