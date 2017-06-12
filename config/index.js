@@ -3,6 +3,9 @@ const path = require('path')
 const debug = require('debug')('app:config-index')
 const argv = require('yargs').argv
 const ip = require('ip')
+const _ = require('lodash')
+
+const globApi = require('../core/globPrduts')
 
 debug('创建默认配置');
 debug('IP：', ip.address());
@@ -138,11 +141,23 @@ config.globals = {
     'NODE_ENV': JSON.stringify(config.env)
   },
   'NODE_ENV': config.env,
+  '__SIM__': config.env === 'sim',
   '__DEV__': config.env === 'development',
   '__PROD__': config.env === 'production',
   '__TEST__': config.env === 'test',
   '__COVERAGE__': !argv.watch && config.env === 'test',
-  '__BASENAME__': JSON.stringify(process.env.BASENAME || '')
+  '__BASENAME__': JSON.stringify(process.env.BASENAME || ''),
+  '__GLOB__': JSON.stringify(globApi.globSync(`${ROOT_PATH}/src/routes/*`))
+}
+
+// ========================================================
+// API /admin/api/porducts
+// 载入配置
+// ========================================================
+if (_.isArray(config.globals.__GLOB__) && config.globals.__GLOB__.length>0) {
+  debug('__GLOB__:', _.toString([...config.globals.__GLOB__]))
+}else {
+  debug('__GLOB__:', config.globals.__GLOB__)
 }
 
 // ------------------------------------
