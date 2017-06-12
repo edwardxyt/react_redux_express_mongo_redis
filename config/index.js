@@ -7,25 +7,19 @@ const _ = require('lodash')
 
 const globApi = require('../core/globPrduts')
 
-debug('创建默认配置');
-debug('IP：', ip.address());
-debug('PORT：', process.env.PORT || 3000);
+debug('创建默认配置')
+debug('IP：', ip.address())
+debug('PORT：', process.env.PORT || 3000)
 
 // ========================================================
 // global Configuration
 // 由于虚拟接口不能很优雅的require到models
 // 全局配置
 // ========================================================
-global.ROOT_PATH = path.resolve(__dirname, '..');
-global.MONGO = path.resolve(__dirname, '..') + '/core/mongo';
-global.REDIS = path.resolve(__dirname, '..') + '/core/redis';
-global.API_USER = path.resolve(__dirname, '..') + '/models/api_user';
-
-// ------------------------------------
-// 配置后端API地址前缀
-// ------------------------------------
-// global.API_HOST = 'http://192.168.3.131:8080';
-// global.HOST_PLATFORM = [API_HOST, '/platform-app'].join('');
+global.ROOT_PATH = path.resolve(__dirname, '..')
+global.MONGO = path.resolve(__dirname, '..') + '/core/mongo'
+global.REDIS = path.resolve(__dirname, '..') + '/core/redis'
+global.API_USER = path.resolve(__dirname, '..') + '/models/api_user'
 
 // ========================================================
 // Default Configuration
@@ -63,9 +57,9 @@ const config = {
     plugins: [
       'transform-runtime',
       [
-        "import", {
-          libraryName: "antd",
-          style: "css"
+        'import', {
+          libraryName: 'antd',
+          style: 'css'
         }
       ]
     ],
@@ -154,9 +148,9 @@ config.globals = {
 // API /admin/api/porducts
 // 载入配置
 // ========================================================
-if (_.isArray(config.globals.__GLOB__) && config.globals.__GLOB__.length>0) {
+if (_.isArray(config.globals.__GLOB__) && config.globals.__GLOB__.length > 0) {
   debug('__GLOB__:', _.toString([...config.globals.__GLOB__]))
-}else {
+} else {
   debug('__GLOB__:', config.globals.__GLOB__)
 }
 

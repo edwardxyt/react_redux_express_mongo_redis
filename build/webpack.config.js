@@ -19,7 +19,10 @@ const webpackConfig = {
     root: paths.client(),
     extensions: ['', '.js', '.jsx', '.json']
   },
-  module: {}
+  module: {},
+  eslint: {
+    configFile: './.eslintrc'
+  }
 }
 // ------------------------------------
 // Entry Points
@@ -86,6 +89,18 @@ if (__DEV__) {
 if (!__TEST__) {
   webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({names: ['vendor']}))
 }
+
+// ------------------------------------
+// preLoaders
+// ------------------------------------
+// JavaScript / eslint
+webpackConfig.module.preLoaders = [
+  {
+    test: /\.(js|jsx)$/,
+    exclude: /node_modules/,
+    loader: 'eslint'
+  }
+]
 
 // ------------------------------------
 // Loaders
