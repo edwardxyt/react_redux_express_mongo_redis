@@ -2,10 +2,20 @@
   "name": "react_redux_express_mongo_redis",
   "version": "0.2.0",
   "description": "Get started with React, Redux, and React-Router!",
+  "author": "",
+  "license": "WTFPL",
   "main": "bin/server",
   "engines": {
     "node": ">=4.5.0",
     "npm": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bin": {
+    "build": "./bin/build.js",
+    "edward": "./bin/edward"
   },
   "config": {
     "port": "3000"
@@ -24,13 +34,14 @@
     "deploy:prod": "better-npm-run deploy:prod",
     "serve": "live-server ./dist --port=9090",
     "diff": "git diff --color | diff-so-fancy",
-    "var": "better-npm-run var",
+    "ip": "better-npm-run ip",
     "codecov": "cat coverage/*/lcov.info | codecov"
   },
   "betterScripts": {
-    "var": {
-      "command": "node bin/build $var",
+    "ip": {
+      "command": "node bin/build $ip",
       "env": {
+        "NODE_ENV": "ip",
         "DEBUG": "app:*"
       }
     },
@@ -82,12 +93,6 @@
       }
     }
   },
-  "repository": {
-    "type": "git",
-    "url": ""
-  },
-  "author": "",
-  "license": "WTFPL",
   "dependencies": {
     "antd": "^2.10.1",
     "axios": "^0.16.1",
