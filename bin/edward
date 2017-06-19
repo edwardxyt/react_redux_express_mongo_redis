@@ -31,7 +31,7 @@ const argv = require('yargs')
         boolean: true,
         type: 'boolean'
       })
-      .example('$ edward commit --n=edward --a=22 --l', '//edward 22 true')
+      .example('$ DEBUG=app:* edward commit --n=edward --a=22 --l', '//edward 22 true')
       .argv;
     echo(argv.n, argv.a, argv.l)
   })
@@ -43,12 +43,12 @@ const argv = require('yargs')
         describe: '详细地址信息',
         type: 'string'
       })
-      .example('$ edward add -a=海淀区', '//edward 22 true')
+      .example('$ DEBUG=app:* edward add -a=海淀区', '//edward 22 true')
       .argv;
 
     echo(argv.a)
   })
-  .usage('查看用法: \n edward 子命令(commit) -h')
+  .usage('查看用法: \n $ DEBUG=app:* edward 子命令(commit) -h')
   .help('h')
   .alias('h', 'help')
   .epilog('copyright 2017.06.19')
