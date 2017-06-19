@@ -1,0 +1,66 @@
+#!/usr/bin/env node
+/**
+ * Author : edward
+ * Copyright (c) https://github.com/edwardxyt
+ * Script follows here:
+ */
+
+// { _: [], name: 'tom', '$0': 'edward' }
+// [ '/Users/edward/.nvm/versions/node/v7.9.0/bin/node', '/Users/edward/.nvm/versions/node/v7.9.0/bin/edward', '--name=tom' ]
+// console.log(argv, process.argv)
+
+require('shelljs/global')
+const argv = require('yargs')
+  .command("commit", "需要提交的描述文字。", function (yargs) {
+    const argv = yargs.reset()
+      .option('n', {  // 默认 tom
+        alias : 'name',
+        demand: false,
+        default: '夏宇霆',
+        describe: '姓名',
+        type: 'string'
+      })
+      .option('a', {  // 必填 a
+        alias : 'age',
+        demand: true,
+        describe: '年龄',
+        type: 'number'
+      })
+      .option('l', {  // 开关
+        describe: '生死',
+        boolean: true,
+        type: 'boolean'
+      })
+      .example('$ edward commit --n=edward --a=22 --l', '//edward 22 true')
+      .argv;
+    echo(argv.n, argv.a, argv.l)
+  })
+  .command("add", "添加地址。", function (yargs) {
+    const argv = yargs.reset()
+      .option('a', {  // 默认 tom
+        alias : 'address',
+        default: '北京市',
+        describe: '详细地址信息',
+        type: 'string'
+      })
+      .example('$ edward add -a=海淀区', '//edward 22 true')
+      .argv;
+
+    echo(argv.a)
+  })
+  .usage('查看用法: \n edward 子命令(commit) -h')
+  .help('h')
+  .alias('h', 'help')
+  .epilog('copyright 2017.06.19')
+  .argv
+
+/**
+ * demand：是否必选
+ * default：默认值
+ * describe：提示
+ *
+ * usage：用法格式
+ * example：提供例子
+ * help：显示帮助信息
+ * epilog：出现在帮助信息的结尾
+ */
