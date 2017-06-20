@@ -7,8 +7,9 @@ shell.exec("echo hello " + name)
 
 const child = exec('echo hello ' + name, function(err, stdout, stderr) {
   if (err) throw err
-  console.log(stdout)
-  console.log({ ip: process.env.npm_config_ip })
+  shell.echo(stdout)
+  shell.echo({ ip: process.env.npm_config_ip })
+  // shell.echo(shell.cat('/Users/edward/workspaces/gm-web/package.json'))
 })
 
 // build world

@@ -31,7 +31,7 @@ const argv = require('yargs')
         boolean: true,
         type: 'boolean'
       })
-      .example('$ DEBUG=app:* edward commit --n=edward --a=22 --l', '//edward 22 true')
+      .example('$ DEBUG=app:* edward commit -n=edward  -a=22 -l', '//edward 22 true')
       .argv;
     echo(argv.n, argv.a, argv.l)
   })
