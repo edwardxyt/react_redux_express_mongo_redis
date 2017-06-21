@@ -26,3 +26,8 @@ const compile = () => {
 }
 
 compile()
+
+/**
+ * 自定义 host compile
+ * npm -s --host=127.0.0.1:9999 run host
+ */

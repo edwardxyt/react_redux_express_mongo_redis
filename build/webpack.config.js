@@ -9,8 +9,13 @@ const paths = config.utils_paths
 const __DEV__ = config.globals.__DEV__
 const __PROD__ = config.globals.__PROD__
 const __TEST__ = config.globals.__TEST__
+const __CUSTOMIZE__ = config.globals.__CUSTOMIZE__
+const __HOST__ = config.globals.__HOST__
 
 debug('创建webpack.config配置.')
+debug('__CUSTOMIZE__:', __CUSTOMIZE__)
+debug('__HOST__:', __HOST__)
+
 const webpackConfig = {
   name: 'client',
   target: 'web',

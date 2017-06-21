@@ -54,6 +54,6 @@ export default(initialState = {}) => {
     })
   }
 
-  console.log(`initialState: `, store.getState());
+  // console.log(`initialState: `, store.getState());
   return store
 }

@@ -10,6 +10,7 @@ const globApi = require('../core/globPrduts')
 debug('创建默认配置')
 debug('IP：', ip.address())
 debug('PORT：', process.env.PORT || 3000)
+debug('npm_config_host：', process.env.npm_config_host)
 
 // ========================================================
 // global Configuration
@@ -138,6 +139,8 @@ config.globals = {
   '__SIM__': config.env === 'sim',
   '__DEV__': config.env === 'development',
   '__PROD__': config.env === 'production',
+  '__CUSTOMIZE__': config.env === 'production',
+  '__HOST__': JSON.stringify(process.env.npm_config_host) || null,
   '__TEST__': config.env === 'test',
   '__COVERAGE__': !argv.watch && config.env === 'test',
   '__BASENAME__': JSON.stringify(process.env.BASENAME || ''),
