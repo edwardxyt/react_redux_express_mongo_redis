@@ -34,9 +34,7 @@ $ mongod -f /Users/edward/workspaces/gm-web/mongodb.conf
 
 $ redis-server /Users/edward/workspaces/react-redux/redis.conf
 
-$ nginx -c /Users/edward/workspaces/react-redux/nginx.conf
-
-$ nginx -t -c /Users/edward/workspaces/react-redux/nginx.conf
+$ sudo nginx -t -c /Users/edward/workspaces/react_redux_express_mongo_redis/nginx.conf
 ```
 
 如果一切顺利，你会看到如下:
