@@ -9,7 +9,7 @@ const globApi = require('../core/globPrduts')
 
 debug('创建默认配置')
 debug('IP：', ip.address())
-debug('PORT：', process.env.PORT || 3000)
+debug('PORT：', process.env.PORT || 6060)
 debug('npm_config_host：', process.env.npm_config_host)
 
 // ========================================================
