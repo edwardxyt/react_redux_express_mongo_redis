@@ -32,7 +32,7 @@
     "deploy": "better-npm-run deploy",
     "deploy:dev": "better-npm-run deploy:dev",
     "deploy:prod": "better-npm-run deploy:prod",
-    "serve": "live-server ./dist --port=9090",
+    "server": "live-server ./dist --port=6061",
     "diff": "git diff --color | diff-so-fancy",
     "host": "better-npm-run host",
     "codecov": "cat coverage/*/lcov.info | codecov"
