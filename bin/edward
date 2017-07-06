@@ -10,6 +10,7 @@
 // console.log(argv, process.argv)
 
 require('shelljs/global')
+
 const argv = require('yargs')
   .command("commit", "需要提交的描述文字。", function (yargs) {
     const argv = yargs.reset()
