@@ -6,6 +6,7 @@ node_modules
 database
 
 dist
+tests
 coverage
 .idea/
 .vscode/
