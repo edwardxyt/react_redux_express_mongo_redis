@@ -49,7 +49,33 @@ const argv = require('yargs')
 
     echo(argv.a)
   })
-  .usage('查看用法: \n $ DEBUG=app:* edward 子命令(commit) -h')
+  .command("compile", "复制和压缩", function (yargs) {
+    const argv = yargs.reset()
+      .option('t', {
+        alias : 'time',
+        demand: true,
+        describe: '日期',
+        type: 'string'
+      })
+      .option('i', {
+        alias : 'ip',
+        demand: true,
+        describe: 'IP',
+        type: 'string'
+      })
+      .option('s', {
+        alias : 'host',
+        demand: true,
+        describe: '端口',
+        type: 'number'
+      })
+      .example('$ edward compile --time="2017-08-05_11-00" --ip="119.29.27.76" --host=10000')
+      .argv;
+
+    cp('-R', '/Users/edward/workspaces/gm-web/dist/*', '/Users/edward/workspaces/gm-web/gm-web/');
+    exec(`zip -r /Users/edward/workspaces/gm-web/historyDist/gm-web-${argv.t}_${argv.i}_${argv.s}.zip gm-web`);
+  })
+  .usage('查看用法: \n $ edward compile')
   .help('h')
   .alias('h', 'help')
   .epilog('copyright 2017.06.19')

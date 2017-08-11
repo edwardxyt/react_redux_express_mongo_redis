@@ -6,6 +6,7 @@ node_modules
 database
 
 dist
+gm-web
 tests
 coverage
 .idea/
