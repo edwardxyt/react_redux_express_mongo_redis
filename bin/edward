@@ -71,9 +71,10 @@ const argv = require('yargs')
       })
       .example('$ edward compile --time="2017-08-05_11-00" --ip="119.29.27.76" --host=10000')
       .argv;
-
+    rm('-rf', '/Users/edward/workspaces/gm-web/gm-web/*');
     cp('-R', '/Users/edward/workspaces/gm-web/dist/*', '/Users/edward/workspaces/gm-web/gm-web/');
     exec(`zip -r /Users/edward/workspaces/gm-web/historyDist/gm-web-${argv.t}_${argv.i}_${argv.s}.zip gm-web`);
+    echo(pwd());
   })
   .usage('查看用法: \n $ edward compile')
   .help('h')
