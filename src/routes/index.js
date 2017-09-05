@@ -71,7 +71,7 @@ export const createRoutes = (store) => ({
         })
       },
 
-      getComponents(location, callback) {
+      getComponent(location, callback) {
         require.ensure([], function (require) {
           callback(null, require('./components/Course'))
         })

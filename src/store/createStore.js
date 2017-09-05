@@ -41,7 +41,7 @@ export default(initialState = {}) => {
   // ReactRouter.browserHistory.listen 来监听url的变化
   store.unsubscribeHistory = browserHistory.listen(updateLocation(store))
   // 如果想要继续监听 注释下句代码
-  store.unsubscribeHistory();
+  // store.unsubscribeHistory();
 
   // 开发环境下的热加载
   // 在你的代码中插入热替换代码
