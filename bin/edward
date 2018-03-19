@@ -3,6 +3,7 @@
  * Author : edward
  * Copyright (c) https://github.com/edwardxyt
  * Script follows here:
+ * http://www.ruanyifeng.com/blog/2015/05/command-line-with-node.html
  */
 
 // { _: [], name: 'tom', '$0': 'edward' }
@@ -10,77 +11,95 @@
 // console.log(argv, process.argv)
 
 require('shelljs/global')
+// hild_process 模块新建子进程，从而执行 Unix 系统命令
+const exec = require('child_process').exec
 
 const argv = require('yargs')
-  .command("commit", "需要提交的描述文字。", function (yargs) {
-    const argv = yargs.reset()
-      .option('n', {  // 默认 tom
-        alias : 'name',
+  .command('commit', '需要提交的描述文字。', function(yargs) {
+    const argv = yargs
+      .reset()
+      .option('n', {
+        // 默认 tom
+        alias: 'name',
         demand: false,
         default: '夏宇霆',
         describe: '姓名',
         type: 'string'
       })
-      .option('a', {  // 必填 a
-        alias : 'age',
+      .option('a', {
+        // 必填 a
+        alias: 'age',
         demand: true,
         describe: '年龄',
         type: 'number'
       })
-      .option('l', {  // 开关
+      .option('l', {
+        // 开关
         describe: '生死',
         boolean: true,
         type: 'boolean'
       })
-      .example('$ DEBUG=app:* edward commit -n=edward  -a=22 -l', '//edward 22 true')
-      .argv;
+      .example(
+        '$ DEBUG=app:* edward commit -n=edward  -a=22 -l',
+        '//edward 22 true'
+      ).argv
     echo(argv.n, argv.a, argv.l)
   })
-  .command("add", "添加地址。", function (yargs) {
-    const argv = yargs.reset()
-      .option('a', {  // 默认 tom
-        alias : 'address',
+  .command('add', '添加地址。', function(yargs) {
+    const argv = yargs
+      .reset()
+      .option('a', {
+        // 默认 tom
+        alias: 'address',
         default: '北京市',
         describe: '详细地址信息',
         type: 'string'
       })
-      .example('$ DEBUG=app:* edward add -a=海淀区', '//edward 22 true')
-      .argv;
+      .example('$ DEBUG=app:* edward add -a=海淀区', '//edward 22 true').argv
 
     echo(argv.a)
   })
-  .command("compile", "复制和压缩", function (yargs) {
-    const argv = yargs.reset()
+  .command('compile', '复制和压缩', function(yargs) {
+    const argv = yargs
+      .reset()
       .option('t', {
-        alias : 'time',
+        alias: 'time',
         demand: true,
         describe: '日期',
         type: 'string'
       })
       .option('i', {
-        alias : 'ip',
+        alias: 'ip',
         demand: true,
         describe: 'IP',
         type: 'string'
       })
       .option('s', {
-        alias : 'host',
+        alias: 'host',
         demand: true,
         describe: '端口',
         type: 'number'
       })
-      .example('$ edward compile --time="2017-08-05_11-00" --ip="119.29.27.76" --host=10000')
-      .argv;
-    rm('-rf', '/Users/edward/workspaces/gm-web/gm-web/*');
-    cp('-R', '/Users/edward/workspaces/gm-web/dist/*', '/Users/edward/workspaces/gm-web/gm-web/');
-    exec(`zip -r /Users/edward/workspaces/gm-web/historyDist/gm-web-${argv.t}_${argv.i}_${argv.s}.zip gm-web`);
-    echo(pwd());
+      .example(
+        '$ edward compile --time="2017-08-05_11-00" --ip="119.29.27.76" --host=10000'
+      ).argv
+    rm('-rf', '/Users/edward/workspaces/gm-web/gm-web/*')
+    cp(
+      '-R',
+      '/Users/edward/workspaces/gm-web/dist/*',
+      '/Users/edward/workspaces/gm-web/gm-web/'
+    )
+    exec(
+      `zip -r /Users/edward/workspaces/gm-web/historyDist/gm-web-${argv.t}_${
+        argv.i
+      }_${argv.s}.zip gm-web`
+    )
+    echo(pwd())
   })
   .usage('查看用法: \n $ edward compile')
   .help('h')
   .alias('h', 'help')
-  .epilog('copyright 2017.06.19')
-  .argv
+  .epilog('copyright 2017.06.19').argv
 
 /**
  * demand：是否必选
